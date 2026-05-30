@@ -1,0 +1,22 @@
+<% content_for :title, "いいね機能デモ" %>
+
+<h1 class="text-2xl font-bold mb-2">いいね機能デモ</h1>
+<p class="text-gray-600 mb-8">同じ「いいね」機能を 2 つの実装パターンで用意しました。</p>
+
+<div class="grid gap-5 sm:grid-cols-2">
+  <%= link_to stimulus_path, class: "block p-6 bg-white rounded-xl border border-gray-200 hover:border-rose-300 hover:shadow transition" do %>
+    <h2 class="font-bold text-lg mb-1">パターンA: Stimulus</h2>
+    <p class="text-sm text-gray-600">
+      Stimulus の<strong>アクションパラメータ</strong>でコンテンツIDを渡し、
+      <code>fetch</code> で PATCH 送信 → JSON を受け取りクライアント側で見た目を更新します。
+    </p>
+  <% end %>
+
+  <%= link_to turbo_path, class: "block p-6 bg-white rounded-xl border border-gray-200 hover:border-rose-300 hover:shadow transition" do %>
+    <h2 class="font-bold text-lg mb-1">パターンB: Turbo</h2>
+    <p class="text-sm text-gray-600">
+      <code>button_to</code> で PATCH 送信 → サーバが <strong>turbo_stream</strong> で
+      ボタン部分を差し替えます。カスタム JavaScript はゼロです。
+    </p>
+  <% end %>
+</div>

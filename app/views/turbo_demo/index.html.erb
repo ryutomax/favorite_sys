@@ -1,0 +1,19 @@
+<% content_for :title, "Turbo パターン" %>
+
+<h1 class="text-2xl font-bold mb-1">パターンB: Turbo (turbo_stream)</h1>
+<p class="text-gray-600 mb-8 text-sm">
+  ハートを押すと <code>button_to</code> が PATCH 送信し、サーバが <code>turbo_stream</code> でボタン部分だけを差し替えます。
+</p>
+
+<div class="space-y-4">
+  <% @contents.each do |content| %>
+    <article class="flex items-center justify-between p-5 bg-white rounded-xl border border-gray-200">
+      <div>
+        <h2 class="font-bold"><%= content.title %></h2>
+        <p class="text-sm text-gray-500"><%= content.body %></p>
+      </div>
+
+      <%= render "favorite_button", content: content %>
+    </article>
+  <% end %>
+</div>

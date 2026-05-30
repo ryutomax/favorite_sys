@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: favarite
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      # 一般的な 5432 と重複しないホストポートを使用
+      - "55433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U favarite"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build: .
+    # DB 準備 → Tailwind ビルド → サーバ起動
+    command: >
+      bash -c "bin/rails db:prepare &&
+               bin/rails tailwindcss:build &&
+               bin/rails server -b 0.0.0.0 -p 3000"
+    environment:
+      DB_HOST: db
+      DB_USERNAME: favarite
+      DB_PASSWORD: password
+      RAILS_ENV: development
+    volumes:
+      - .:/app
+    ports:
+      # 3000 番台で重複しにくいホストポートを使用
+      - "3987:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pg_data:

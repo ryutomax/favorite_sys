@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title><%= content_for(:title) || "いいね機能 デモ" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="min-h-screen bg-gray-50 text-gray-900">
+    <header class="bg-white border-b border-gray-200">
+      <nav class="max-w-3xl mx-auto px-5 py-4 flex items-center gap-6">
+        <%= link_to "いいね機能 デモ", root_path, class: "font-bold text-lg" %>
+        <div class="flex gap-4 text-sm">
+          <%= link_to "Stimulus パターン", stimulus_path, class: "px-3 py-1 rounded-full hover:bg-gray-100" %>
+          <%= link_to "Turbo パターン", turbo_path, class: "px-3 py-1 rounded-full hover:bg-gray-100" %>
+        </div>
+      </nav>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-5 py-10">
+      <%= yield %>
+    </main>
+  </body>
+</html>
