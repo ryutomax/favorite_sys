@@ -1,4 +1,1 @@
 @import "tailwindcss";
-
-/* Stimulus が JS で付け外しするクラスはビルド時に検出されないことがあるため明示的に含める */
-@source inline("hidden text-rose-500 text-rose-600 text-gray-400 border-rose-300 bg-rose-50 border-gray-300 bg-white");
