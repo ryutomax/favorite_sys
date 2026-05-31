@@ -22,7 +22,7 @@ export default class extends Controller {
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
         return response.json()
       })
-      .then((data) => this.render(data.is_favarite))
+      .then((data) => this.render(data.is_favorite))
       .catch((error) => console.error("いいねの更新に失敗しました", error))
   }
 

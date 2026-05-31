@@ -4,17 +4,17 @@ default: &default
   max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV.fetch("DB_HOST", "db") %>
   port: <%= ENV.fetch("DB_PORT", 5432) %>
-  username: <%= ENV.fetch("DB_USERNAME", "favarite") %>
+  username: <%= ENV.fetch("DB_USERNAME", "favorite") %>
   password: <%= ENV.fetch("DB_PASSWORD", "password") %>
 
 development:
   <<: *default
-  database: favarite_sys_development
+  database: favorite_sys_development
 
 test:
   <<: *default
-  database: favarite_sys_test
+  database: favorite_sys_test
 
 production:
   <<: *default
-  database: favarite_sys_production
+  database: favorite_sys_production

@@ -7,6 +7,6 @@ class StimulusDemoController < ApplicationController
   def toggle
     content = Content.find(params[:id])
     content.toggle_favorite!
-    render json: { id: content.id, is_favarite: content.is_favarite }
+    render json: { id: content.id, is_favorite: content.is_favorite }
   end
 end

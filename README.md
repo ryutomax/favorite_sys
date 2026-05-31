@@ -1,4 +1,4 @@
-# favarite_sys — いいね機能デモ
+# favorite_sys — いいね機能デモ
 
 同じ「いいね（ハート）」機能を **2 つの実装パターン** で実装した最小デモです。
 
@@ -7,7 +7,7 @@
 | A. Stimulus アクションパラメータ | `/stimulus` | ボタンの `data-favorite-*-param` を `event.params` として受け取り、`fetch` で PATCH → JSON を受信してクライアント側で見た目を更新 |
 | B. Turbo | `/turbo` | `button_to` で PATCH 送信 → サーバが `turbo_stream` でボタン部分を差し替え（カスタム JS ゼロ） |
 
-どちらのパターンも同じ `contents` テーブルを共有し、いいね状態は `is_favarite` カラムに保存されます。
+どちらのパターンも同じ `contents` テーブルを共有し、いいね状態は `is_favorite` カラムに保存されます。
 
 ## 技術構成
 
@@ -19,7 +19,7 @@
 ## 起動方法
 
 ```bash
-cd favarite_sys
+cd favorite_sys
 docker compose up --build
 ```
 
@@ -52,7 +52,7 @@ app/
       toggle.turbo_stream.erb     # turbo_stream レスポンス
   models/content.rb               # toggle_favorite!
 db/
-  migrate/*_create_contents.rb    # contents(title, body, is_favarite)
+  migrate/*_create_contents.rb    # contents(title, body, is_favorite)
   seeds.rb                        # サンプル3件
 config/routes.rb
 ```

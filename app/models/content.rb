@@ -1,6 +1,6 @@
 class Content < ApplicationRecord
   # いいね状態をトグルする
   def toggle_favorite!
-    update!(is_favarite: !is_favarite)
+    update!(is_favorite: !is_favorite)
   end
 end

@@ -1,12 +1,12 @@
 <div id="<%= dom_id(content, :favorite) %>">
   <%= button_to turbo_toggle_path(content),
         method: :patch,
-        class: "inline-flex items-center gap-2 px-4 py-2 rounded-full border transition #{content.is_favarite ? 'border-rose-300 bg-rose-50' : 'border-gray-300 bg-white'}" do %>
-    <span class="<%= content.is_favarite ? 'text-rose-500' : 'text-gray-400' %>">
-      <%= heart_icon(filled: content.is_favarite) %>
+        class: "inline-flex items-center gap-2 px-4 py-2 rounded-full border transition #{content.is_favorite ? 'border-rose-300 bg-rose-50' : 'border-gray-300 bg-white'}" do %>
+    <span class="<%= content.is_favorite ? 'text-rose-500' : 'text-gray-400' %>">
+      <%= heart_icon(filled: content.is_favorite) %>
     </span>
     <span class="text-sm font-medium text-gray-700">
-      <%= content.is_favarite ? "いいね済み" : "いいね" %>
+      <%= content.is_favorite ? "いいね済み" : "いいね" %>
     </span>
   <% end %>
 </div>

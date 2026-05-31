@@ -18,16 +18,16 @@
         data-action="favorite#toggle"
         data-favorite-id-param="<%= content.id %>"
         data-favorite-url-param="<%= stimulus_toggle_path(content) %>"
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border transition <%= content.is_favarite ? "border-rose-300 bg-rose-50" : "border-gray-300 bg-white" %>"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border transition <%= content.is_favorite ? "border-rose-300 bg-rose-50" : "border-gray-300 bg-white" %>"
       >
-        <span data-favorite-target="filled" class="text-rose-500 <%= "hidden" unless content.is_favarite %>">
+        <span data-favorite-target="filled" class="text-rose-500 <%= "hidden" unless content.is_favorite %>">
           <%= heart_icon(filled: true) %>
         </span>
-        <span data-favorite-target="outline" class="text-gray-400 <%= "hidden" if content.is_favarite %>">
+        <span data-favorite-target="outline" class="text-gray-400 <%= "hidden" if content.is_favorite %>">
           <%= heart_icon(filled: false) %>
         </span>
         <span data-favorite-target="label" class="text-sm font-medium text-gray-700">
-          <%= content.is_favarite ? "いいね済み" : "いいね" %>
+          <%= content.is_favorite ? "いいね済み" : "いいね" %>
         </span>
       </button>
     </article>
