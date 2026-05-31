@@ -81,14 +81,24 @@ toggle(event) {
 }
 ```
 
-アクション側は `@content`（ivar）を渡してパーシャルを描画します。
+アクション側は `@content`（ivar）でアクションパーシャルを描画します。
 
 ```ruby
 def toggle
   @content = Content.find(params[:id])
   @content.toggle_favorite!
-  render partial: "favorite_button"   # パーシャルは @content を参照
+  render partial: "favorite_button"   # アクションパーシャルは @content を参照
 end
+```
+
+アクションパーシャル配下の子パーシャルへは、`locals` で値をリレーします。
+
+```erb
+<%# _favorite_button.html.erb（@content を参照） %>
+<%= render "heart", content: @content %>
+
+<%# _heart.html.erb（locals の content を参照） %>
+<span><%= heart_icon(filled: content.is_favorite) %></span>
 ```
 
 ### パターンB（Turbo）
