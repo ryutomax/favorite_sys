@@ -2,13 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 
 // パターンA: Stimulus アクションパラメータを使った「いいね」トグル
 //
-// ボタンに付与した data-favorite-id-param / data-favorite-url-param が
-// event.params.id / event.params.url として渡ってくる。
+// ボタンに付与した data-favorite-url-param が event.params.url として渡ってくる。
+// （url にコンテンツの id が含まれるため、id は別途渡さない）
 // サーバはアクションパーシャル(HTML)を返すので、ボタンをまるごと差し替える。
 export default class extends Controller {
   toggle(event) {
-    const { id, url } = event.params
-    console.log(`コンテンツ#${id} のいいねを切り替えます`)
+    const { url } = event.params
 
     fetch(url, {
       method: "PATCH",

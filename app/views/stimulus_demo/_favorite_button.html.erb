@@ -2,7 +2,6 @@
 <button
   data-controller="favorite"
   data-action="favorite#toggle"
-  data-favorite-id-param="<%= content.id %>"
   data-favorite-url-param="<%= stimulus_toggle_path(content) %>"
   class="inline-flex items-center gap-2 px-4 py-2 rounded-full border transition <%= content.is_favorite ? "border-rose-300 bg-rose-50" : "border-gray-300 bg-white" %>"
 >
