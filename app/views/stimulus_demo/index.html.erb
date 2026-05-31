@@ -7,14 +7,13 @@
 
 <div class="space-y-4">
   <% @contents.each do |content| %>
-    <% @content = content %>
     <article class="flex items-center justify-between p-5 bg-white rounded-xl border border-gray-200">
       <div>
-        <h2 class="font-bold"><%= @content.title %></h2>
-        <p class="text-sm text-gray-500"><%= @content.body %></p>
+        <h2 class="font-bold"><%= content.title %></h2>
+        <p class="text-sm text-gray-500"><%= content.body %></p>
       </div>
 
-      <%= render "favorite_button" %>
+      <%= render "favorite_button", content: content %>
     </article>
   <% end %>
 </div>
