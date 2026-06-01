@@ -3,14 +3,11 @@ class TurboDemoController < ApplicationController
     @contents = Content.order(:id)
   end
 
-  # button_to からの PATCH で呼ばれる。いいね状態をトグルして turbo_stream でボタンを差し替える。
+  # いいね状態をトグルして turbo_stream でボタンを差し替える
+  # button_to からの PATCH で呼ばれる
+  # 明示 render なし → 暗黙で toggle.turbo_stream.erb を描画する
   def toggle
     @content = Content.find(params[:id])
     @content.toggle_favorite!
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to turbo_path }
-    end
   end
 end

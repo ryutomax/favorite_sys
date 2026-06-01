@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  # アプリの稼働確認用エンドポイント
-  get "up" => "rails/health#show", as: :rails_health_check
-
   # トップページ: 2つのデモへのリンク
   root "home#index"
 

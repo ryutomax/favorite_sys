@@ -4,7 +4,7 @@
 
 | パターン | URL | 仕組み |
 | --- | --- | --- |
-| A. Stimulus アクションパラメータ | `/stimulus` | ボタンの `data-favorite-*-param` を `event.params` として受け取り、`fetch` で PATCH → JSON を受信してクライアント側で見た目を更新 |
+| A. Stimulus アクションパラメータ | `/stimulus` | ボタンの `data-favorite-*-param` を `event.params` として受け取り、`fetch` で PATCH → サーバが返すボタンのパーシャル(HTML)で差し替え |
 | B. Turbo | `/turbo` | `button_to` で PATCH 送信 → サーバが `turbo_stream` でボタン部分を差し替え（カスタム JS ゼロ） |
 
 どちらのパターンも同じ `contents` テーブルを共有し、いいね状態は `is_favorite` カラムに保存されます。
@@ -40,7 +40,7 @@ docker compose down -v       # DB データも削除
 ```
 app/
   controllers/
-    stimulus_demo_controller.rb   # パターンA: JSON を返す toggle
+    stimulus_demo_controller.rb   # パターンA: @content を渡してボタンのパーシャルを返す toggle
     turbo_demo_controller.rb      # パターンB: turbo_stream を返す toggle
   javascript/controllers/
     favorite_controller.js        # パターンA: Stimulus コントローラ（event.params 使用）
@@ -70,13 +70,33 @@ config/routes.rb
         data-favorite-url-param="<%= stimulus_toggle_path(content) %>">
 ```
 
-コントローラ側は `event.params` で受け取ります。
+コントローラ側は `event.params` で受け取り、サーバが返すパーシャル(HTML)でボタンを差し替えます。
 
 ```js
 toggle(event) {
   const { id, url } = event.params   // ← アクションパラメータ
-  fetch(url, { method: "PATCH", ... })
+  fetch(url, { method: "PATCH", headers: { Accept: "text/html", ... } })
+    .then((res) => res.text())
+    .then((html) => { this.element.outerHTML = html })
 }
+```
+
+アクション側はコントローラの ivar(`@content`) を受け取り、配下のパーシャルへは `locals` で渡します。
+
+```ruby
+def toggle
+  @content = Content.find(params[:id])
+  @content.toggle_favorite!
+  render partial: "favorite_button", locals: { content: @content }
+end
+```
+
+受け取る側のパーシャルは strict locals で受け取る値を宣言します。
+
+```erb
+<%# _favorite_button.html.erb %>
+<%# locals: (content:) %>
+<button data-favorite-id-param="<%= content.id %>" ...>
 ```
 
 ### パターンB（Turbo）
